@@ -1,10 +1,13 @@
+import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import { models } from '../models';
 import {
+  getLoginFormErrors,
   getRegisterFormErrors,
+  loginErrorResponse,
   registerErrorResponse,
 } from '../utils/api/auth';
-import { hashValue } from '../utils/misc';
+import { generateToken, hashValue } from '../utils/misc';
 
 const router = Router();
 const SALT_ROUNDS = 10;
@@ -12,7 +15,7 @@ const { User } = models;
 
 // This route handles the account creation process for registering users.
 router.post('/register', async (req, res) => {
-  // If there are errors with the values provided in the form, then return the errors.
+  // Determine if there are any errors with the given fields before proceeding.
   const formErrors = getRegisterFormErrors(req.body);
   if (formErrors) {
     res.status(400).json(registerErrorResponse(formErrors));
@@ -54,10 +57,49 @@ router.post('/register', async (req, res) => {
     if (newUser) {
       newUser.destroy();
     }
+    const message = 'There was an error registering.';
+    res.status(500).json(registerErrorResponse([{ message }]));
+  }
+});
+
+// This route
+router.post('/login', async (req, res) => {
+  // Determine if there are any errors with the given fields before proceeding.
+  const formErrors = getLoginFormErrors(req.body);
+  if (formErrors) {
+    res.status(400).json(loginErrorResponse(formErrors));
+    return;
+  }
+
+  try {
+    const { email, password } = req.body;
+    // Fetch the user with the provided email.
+    const user = await User.findOne({ where: { email } });
+
+    if (!user) {
+      // Since we couldn't fetch a user with the provided email, complain!
+      const message = 'There is no user with this email.';
+      res.status(400).json(loginErrorResponse([{ message, field: 'email' }]));
+      return;
+    }
+    // Determine if hashed password matches provided password.
+    const hashedPassword = user.get('password') as string;
+    const passwordMatchesHash = await bcrypt.compare(password, hashedPassword);
+
+    if (!passwordMatchesHash) {
+      // Since the provided password doesn't match the stored hash, complain!
+      const message = 'Invalid credentials';
+      res.status(400).json(loginErrorResponse([{ message }]));
+      return;
+    }
+    // Generate a token tom be store client-side.
+    const token = await generateToken({ userId: user.get('id') });
+    res.json({ token });
+  } catch (e) {
     res
       .status(500)
       .json(
-        registerErrorResponse([{ message: 'There was an error registering.' }])
+        loginErrorResponse([{ message: 'An error occurred trying to login.' }])
       );
   }
 });

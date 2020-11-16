@@ -1,4 +1,5 @@
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken';
 
 // This describes an error that has occurred when filling out a form.
 interface FormError {
@@ -46,6 +47,9 @@ const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-_]).{8,
  */
 const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
+// The jwt secret key for generating tokens.
+const JWT_SECRET_KEY = 'CHAT_APP_SECRET';
+
 /**
  * Hashes the given value and returns an array that includes the result if successful and an error message otherwise.
  *
@@ -68,4 +72,23 @@ async function hashValue(
   return [error, hash];
 }
 
-export { FormError, FormErrorResponse, PASSWORD_REGEX, EMAIL_REGEX, hashValue };
+/**
+ * Generates a jwt token encoded with the given payload. The token only lasts for an hour.
+ *
+ * @param payload
+ */
+async function generateToken(
+  payload: string | Buffer | Record<string, unknown>
+): Promise<string> {
+  return jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: 3600 });
+}
+
+export {
+  FormError,
+  FormErrorResponse,
+  PASSWORD_REGEX,
+  EMAIL_REGEX,
+  hashValue,
+  JWT_SECRET_KEY,
+  generateToken,
+};
