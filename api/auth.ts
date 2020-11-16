@@ -62,7 +62,7 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// This route
+// This route handles logging in users and sending back a token to authorize user actions.
 router.post('/login', async (req, res) => {
   // Determine if there are any errors with the given fields before proceeding.
   const formErrors = getLoginFormErrors(req.body);
