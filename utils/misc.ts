@@ -32,13 +32,13 @@ interface FormErrorResponse {
  *
  * (?=.*[0-9])        - Contains at least one number.
  *
- * (?=.*[!@#$%^&*-_]) - Contains at least one special character: !, @, #, $, %, ^, &, *, -, _.
+ * (?=.*[!@#$%^&*\-_]) - Contains at least one special character: !, @, #, $, %, ^, &, *, -, _.
  *
  * .{8,}              - Is minimum 8 characters in length.
  *
  * $                  - End of the string.
  */
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*-_]).{8,}$/;
+const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*\-_]).{8,}$/;
 
 /**
  * Regex for validating user emails.
