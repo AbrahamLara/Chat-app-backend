@@ -23,11 +23,11 @@ router.post('/register', async (req, res) => {
   }
 
   try {
-    const { firstName, lastName, email, password } = req.body;
+    const { name, email, password } = req.body;
     // We want to determine if the provided email is already in use by an existing user.
     const [newUser, created] = await User.findOrCreate({
       where: { email },
-      defaults: { firstName, lastName, password },
+      defaults: { name, password },
     });
     // If the user was not created, then that means that a user already exists with the given email.
     if (!created) {

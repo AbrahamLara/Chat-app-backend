@@ -6,11 +6,7 @@ module.exports = {
         primaryKey: true,
         defaultValue: Sequelize.UUIDV4,
       },
-      firstName: {
-        type: Sequelize.STRING,
-        allowNull: false,
-      },
-      lastName: {
+      name: {
         type: Sequelize.STRING,
         allowNull: false,
       },
@@ -33,7 +29,7 @@ module.exports = {
       },
     });
   },
-  down: async (queryInterface) => {
+  down: async queryInterface => {
     await queryInterface.dropTable('Users');
   },
 };

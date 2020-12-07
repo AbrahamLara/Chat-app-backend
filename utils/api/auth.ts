@@ -13,8 +13,7 @@ interface LoginFormFields {
 
 // The register form fields provided by client-side.
 interface RegisterFormFields extends LoginFormFields {
-  firstName: string;
-  lastName: string;
+  name: string;
   // The confirmation password that should match the value of the password field.
   confPassword: string;
 }
@@ -25,10 +24,10 @@ interface RegisterFormFields extends LoginFormFields {
  * @param fields Register form fields
  */
 function getRegisterFormErrors(fields: RegisterFormFields): FormError[] | null {
-  const { firstName, lastName, email, password, confPassword } = fields;
+  const { name, email, password, confPassword } = fields;
   const errors: FormError[] = [];
   // Check that all the fields are filled.
-  if (!firstName || !lastName || !email || !password || !confPassword) {
+  if (!name || !email || !password || !confPassword) {
     errors.push({ message: 'All fields must be filled in.' });
   }
   // Determine if provided email is valid even if validation is done client-side.

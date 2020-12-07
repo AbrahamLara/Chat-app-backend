@@ -19,11 +19,7 @@ export default function (
         primaryKey: true,
         defaultValue: UUIDV4,
       },
-      firstName: {
-        type: types.STRING,
-        allowNull: false,
-      },
-      lastName: {
+      name: {
         type: types.STRING,
         allowNull: false,
       },
