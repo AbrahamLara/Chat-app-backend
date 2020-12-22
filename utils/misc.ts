@@ -75,7 +75,7 @@ async function hashValue(
 /**
  * Generates a jwt token encoded with the given payload. The token only lasts for an hour.
  *
- * @param payload
+ * @param payload Data to encode in the token.
  */
 async function generateToken(
   payload: string | Buffer | Record<string, unknown>

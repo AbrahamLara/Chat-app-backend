@@ -1,16 +1,12 @@
 import { Model, Sequelize } from 'sequelize';
 import * as SequelizeDataTypes from 'sequelize/types/lib/data-types';
 
-/**
- * Database models that can be used for querying.
- */
+// Database models that can be used for querying.
 type Models = {
   [key: string]: typeof SequelizeModel;
 };
 
-/**
- * The sequelize database model with a static associate method for code completion.
- */
+// The sequelize database model with a static associate method for code completion.
 class SequelizeModel extends Model {
   /**
    * Helper method for defining associations.
@@ -20,9 +16,7 @@ class SequelizeModel extends Model {
   static associate(models: Models): void {}
 }
 
-/**
- * Sequelize data types to reference for all models.
- */
+// Sequelize data types to reference for all models.
 type DataTypes = typeof SequelizeDataTypes;
 
 export { SequelizeModel, Sequelize, DataTypes, Models };
