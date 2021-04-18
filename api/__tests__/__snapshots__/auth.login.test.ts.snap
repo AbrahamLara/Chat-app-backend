@@ -1,0 +1,24 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Auth login endpoint returns error message for email that is not registered 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "field": "email",
+      "message": "There is no user with this email.",
+    },
+  ],
+  "type": "login",
+}
+`;
+
+exports[`Auth login endpoint returns error message for invalid credentials 1`] = `
+Object {
+  "errors": Array [
+    Object {
+      "message": "Invalid credentials",
+    },
+  ],
+  "type": "login",
+}
+`;

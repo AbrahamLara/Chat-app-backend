@@ -1,8 +1,11 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import User from './user';
 import { Models } from '../utils/database-types';
-// Get the development config from config.json
-const config = require(`${__dirname}/../config/config.json`).development;
+// Get the env config from config.json
+const config = require(`${__dirname}/../config/config.json`)[
+  // This environment variable is only used for unit tests and will return 'undefined' when running the server.
+  process.env.NODE_ENV || 'development'
+];
 // Connect to the database.
 const sequelize = new Sequelize(
   config.database,

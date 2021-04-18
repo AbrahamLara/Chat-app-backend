@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`auth api utils getLoginFormErrors returns error messages based on invalid form value 1`] = `
+Array [
+  Object {
+    "field": "email",
+    "message": "Enter your email to login",
+  },
+]
+`;
+
+exports[`auth api utils getLoginFormErrors returns error messages based on invalid form value 2`] = `
+Array [
+  Object {
+    "field": "password",
+    "message": "Enter your password to login",
+  },
+]
+`;
+
+exports[`auth api utils getLoginFormErrors returns error messages based on invalid form value 3`] = `
+Array [
+  Object {
+    "message": "Please fill in both fields.",
+  },
+  Object {
+    "field": "email",
+    "message": "Enter your email to login",
+  },
+  Object {
+    "field": "password",
+    "message": "Enter your password to login",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 1`] = `
+Array [
+  Object {
+    "field": "name",
+    "message": "Please enter your name.",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 2`] = `
+Array [
+  Object {
+    "field": "email",
+    "message": "You must enter a valid email.",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 3`] = `
+Array [
+  Object {
+    "field": "password",
+    "message": "You must enter a valid password.",
+  },
+  Object {
+    "field": "confPassword",
+    "message": "Your confirmation password must match your password.",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 4`] = `
+Array [
+  Object {
+    "field": "confPassword",
+    "message": "Your confirmation password must match your password.",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 5`] = `
+Array [
+  Object {
+    "message": "All fields must be filled in.",
+  },
+  Object {
+    "field": "name",
+    "message": "Please enter your name.",
+  },
+  Object {
+    "field": "email",
+    "message": "You must enter a valid email.",
+  },
+  Object {
+    "field": "password",
+    "message": "You must enter a valid password.",
+  },
+]
+`;

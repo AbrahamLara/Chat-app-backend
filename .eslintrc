@@ -21,6 +21,10 @@
   ],
   "rules": {
     "no-unused-vars": "off",
+    "no-console": "off",
+    "no-shadow": "off",
+    "no-param-reassign": "off",
+    "@typescript-eslint/no-shadow": ["error"],
     "func-names": "off",
     "sort-imports": ["error", {
       "memberSyntaxSortOrder":  ["none", "all", "single", "multiple"],
@@ -34,6 +38,7 @@
         "ts": "never"
       }
     ],
+    "import/prefer-default-export": "off",
     "@typescript-eslint/no-var-requires": "off",
     "@typescript-eslint/no-unused-vars": "error",
     "prettier/prettier": "error"
