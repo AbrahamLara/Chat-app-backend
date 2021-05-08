@@ -1,61 +1,67 @@
 import {
-  ErrorPayload,
-  ErrorPayloadType,
-  FormErrorMessage,
-} from '../error-types';
-import {
   AuthFormField,
+  EMAIL_REGEX,
+  LoginFormFields,
   LoginResponseMessage,
+  PASSWORD_REGEX,
+  RegisterFormFields,
   RegisterResponseMessage,
-} from '../constants';
+} from './auth-utils';
 
-// The login form fields provided by client-side.
-interface LoginFormFields {
-  email: string;
-  password: string;
+export enum ApiRoute {
+  REGISTER = 'register',
+  LOGIN = 'login',
 }
 
-// The register form fields provided by client-side.
-interface RegisterFormFields extends LoginFormFields {
-  name: string;
-  // The confirmation password that should match the value of the password field.
-  confPassword: string;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+interface GenericMessage {
+  /**
+   * Generic message to send as response.
+   */
+  message: string;
 }
 
 /**
- * Regex for validating user passwords.
- *
- * Rules:
- *
- * ^                  - Start of the string.
- *
- * (?=.*[a-z])        - Contains at least one lowercase character.
- *
- * (?=.*[A-Z])        - Contains at least one uppercase character.
- *
- * (?=.*[0-9])        - Contains at least one number.
- *
- * (?=.*[!@#$%^&*\-_]) - Contains at least one special character: !, @, #, $, %, ^, &, *, -, _.
- *
- * .{8,}              - Is minimum 8 characters in length.
- *
- * $                  - End of the string.
+ * Describes an error message for an invalid form field value.
  */
-const PASSWORD_REGEX = /^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*\-_]).{8,}$/;
+export interface FormErrorMessage extends GenericMessage {
+  /**
+   * The form field the error message is for. This doesn't need to be provided if a form error wasn't due to an invalid
+   * field value.
+   */
+  field?: string;
+}
 
 /**
- * Regex for validating user emails.
- *
- * See the longer RFC 5322 Official Standard email regex: https://emailregex.com/
+ * Describes the payload to return for a failed request.
  */
-const EMAIL_REGEX = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+export interface ErrorPayload {
+  /**
+   * The error message type represented as the api route sending the error payload.
+   *
+   * Note: This might not actually be needed.
+   */
+  type: ApiRoute;
+
+  /**
+   * The error messages produced. Right now the backend only serves form errors.
+   */
+  errors: FormErrorMessage[];
+}
+
+/**
+ * Creates a generic message object.
+ */
+export function createGenericMessage(message: string): GenericMessage {
+  return { message };
+}
 
 /**
  * Returns an array of errors from the provided register fields.
  *
  * @param fields Register form fields
  */
-function getRegisterFormErrors(
+export function getRegisterFormErrors(
   fields: RegisterFormFields
 ): FormErrorMessage[] | null {
   const { name, email, password, confPassword } = fields;
@@ -90,7 +96,12 @@ function getRegisterFormErrors(
   }
 
   // The confirmation password must equal the original password.
-  if (password !== confPassword) {
+  if (!confPassword) {
+    errors.push({
+      message: RegisterResponseMessage.BLANK_CONF_PASSWORD,
+      field: AuthFormField.CONF_PASSWORD,
+    });
+  } else if (password !== confPassword) {
     errors.push({
       message: RegisterResponseMessage.INVALID_CONFIRMATION_PASSWORD,
       field: AuthFormField.CONF_PASSWORD,
@@ -105,7 +116,7 @@ function getRegisterFormErrors(
  *
  * @param fields Login form fields
  */
-function getLoginFormErrors(
+export function getLoginFormErrors(
   fields: LoginFormFields
 ): FormErrorMessage[] | null {
   const { email, password } = fields;
@@ -132,21 +143,20 @@ function getLoginFormErrors(
   return errors.length ? errors : null;
 }
 
-// Creates a register form error response.
-function getRegisterErrorMessages(errors: FormErrorMessage[]): ErrorPayload {
-  return { type: ErrorPayloadType.REGISTER, errors };
+/**
+ * Creates a register form error response.
+ */
+export function getRegisterErrorMessages(
+  errors: FormErrorMessage[]
+): ErrorPayload {
+  return { type: ApiRoute.REGISTER, errors };
 }
 
-// Creates a login form error response.
-function getLoginErrorMessages(errors: FormErrorMessage[]): ErrorPayload {
-  return { type: ErrorPayloadType.LOGIN, errors };
+/**
+ * Creates a login form error response.
+ */
+export function getLoginErrorMessages(
+  errors: FormErrorMessage[]
+): ErrorPayload {
+  return { type: ApiRoute.LOGIN, errors };
 }
-
-export {
-  LoginFormFields,
-  RegisterFormFields,
-  getRegisterErrorMessages,
-  getLoginErrorMessages,
-  getRegisterFormErrors,
-  getLoginFormErrors,
-};

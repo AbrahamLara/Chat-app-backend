@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 
 // The jwt secret key for generating tokens.
-const JWT_SECRET_KEY = 'CHAT_APP_SECRET';
+export const JWT_SECRET_KEY = 'JWT_SECRET_KEY';
 
 /**
  * Hashes the given value and returns the hashed result.
@@ -11,7 +11,7 @@ const JWT_SECRET_KEY = 'CHAT_APP_SECRET';
  * @param salt The salt used in the encryption.
  * @return Promise of hash
  */
-async function hashValue(
+export async function hashValue(
   value: string,
   salt: string | number
 ): Promise<string> {
@@ -31,10 +31,8 @@ async function hashValue(
  *
  * @param payload Data to encode in the token.
  */
-async function generateToken(
+export async function generateToken(
   payload: string | Buffer | Record<string, unknown>
 ): Promise<string> {
   return jwt.sign(payload, JWT_SECRET_KEY, { expiresIn: 3600 });
 }
-
-export { hashValue, JWT_SECRET_KEY, generateToken };

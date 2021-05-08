@@ -1,11 +1,11 @@
-import { Model, Sequelize, UUID, UUIDV4 } from 'sequelize';
-import { DataTypes, Models, SequelizeModel } from '../utils/database-types';
+import { Sequelize, UUID, UUIDV4 } from 'sequelize';
+import { DataTypes, Models, SequelizeModel } from '../utils/database-utils';
 
-export default function (
+export default function(
   sequelize: Sequelize,
   types: DataTypes
 ): typeof SequelizeModel {
-  class User extends Model {
+  class User extends SequelizeModel {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     static associate(models: Models) {
       // Defined model associations

@@ -2,18 +2,18 @@ import bcrypt from 'bcrypt';
 import { Router } from 'express';
 import { models } from '../models';
 import {
+  AuthFormField,
+  LoginResponseMessage,
+  RegisterResponseMessage,
+} from '../utils/auth-utils';
+import { generateToken, hashValue } from '../utils/misc-utils';
+import { SequelizeModel } from '../utils/database-utils';
+import {
   getLoginErrorMessages,
   getLoginFormErrors,
   getRegisterErrorMessages,
   getRegisterFormErrors,
-} from '../utils/api/auth';
-import { generateToken, hashValue } from '../utils/misc';
-import {
-  AuthFormField,
-  LoginResponseMessage,
-  RegisterResponseMessage,
-} from '../utils/constants';
-import { SequelizeModel } from '../utils/database-types';
+} from '../utils/message-utils';
 
 const router = Router();
 const SALT_ROUNDS = 10;

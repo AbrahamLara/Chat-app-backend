@@ -69,12 +69,25 @@ exports[`auth api utils getRegisterFormErrors returns error messages based on in
 Array [
   Object {
     "field": "confPassword",
-    "message": "Your confirmation password must match your password.",
+    "message": "Please re-enter your password to confirm.",
   },
 ]
 `;
 
 exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 5`] = `
+Array [
+  Object {
+    "field": "password",
+    "message": "You must enter a valid password.",
+  },
+  Object {
+    "field": "confPassword",
+    "message": "Your confirmation password must match your password.",
+  },
+]
+`;
+
+exports[`auth api utils getRegisterFormErrors returns error messages based on invalid form value 6`] = `
 Array [
   Object {
     "message": "All fields must be filled in.",
@@ -90,6 +103,10 @@ Array [
   Object {
     "field": "password",
     "message": "You must enter a valid password.",
+  },
+  Object {
+    "field": "confPassword",
+    "message": "Please re-enter your password to confirm.",
   },
 ]
 `;

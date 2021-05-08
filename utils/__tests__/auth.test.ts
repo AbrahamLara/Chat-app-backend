@@ -1,5 +1,5 @@
-import { getLoginFormErrors, getRegisterFormErrors } from '../api/auth';
-import { MOCK_LOGIN_FORM, MOCK_REGISTER_FORM } from '../tests/constants';
+import { MOCK_LOGIN_FORM, MOCK_REGISTER_FORM } from '../test-utils';
+import { getLoginFormErrors, getRegisterFormErrors } from '../message-utils';
 
 describe('auth api utils', () => {
   it('getRegisterFormErrors returns error messages based on invalid form value', () => {
@@ -28,6 +28,14 @@ describe('auth api utils', () => {
       getRegisterFormErrors({
         ...MOCK_REGISTER_FORM,
         confPassword: '',
+      })
+    ).toMatchSnapshot();
+
+    expect(
+      getRegisterFormErrors({
+        ...MOCK_REGISTER_FORM,
+        password: 'test',
+        confPassword: 'testing',
       })
     ).toMatchSnapshot();
 

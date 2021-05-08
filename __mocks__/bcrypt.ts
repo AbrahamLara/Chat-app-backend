@@ -1,4 +1,4 @@
-import { MOCK_HASH } from '../utils/tests/constants';
+import { MOCK_HASH } from '../utils/test-utils';
 
 interface MockBcrypt {
   hash: () => string;

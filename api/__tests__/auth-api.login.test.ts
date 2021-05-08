@@ -7,9 +7,9 @@ import {
   MOCK_LOGIN_FORM,
   MOCK_REGISTER_FORM,
   TEST_SERVER_PORT,
-} from '../../utils/tests/constants';
-import { LoginFormFields } from '../../utils/api/auth';
-import { createTestServer } from '../../utils/tests/helpers';
+  createTestServer,
+} from '../../utils/test-utils';
+import { LoginFormFields } from '../../utils/auth-utils';
 
 // Determines if the mock bcrypt compare call should fail.
 let shouldFailCompare = false;
@@ -20,7 +20,7 @@ jest.mock('bcrypt', () => ({
 }));
 
 // Mock functions that return a hash value and jwt to avoid unnecessary computations for each test.
-jest.mock('../../utils/misc.ts', () => {
+jest.mock('../../utils/misc-utils.ts', () => {
   return {
     hashValue: async () => MOCK_HASH,
     generateToken: async () => MOCK_JWT,

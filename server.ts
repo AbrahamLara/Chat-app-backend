@@ -1,8 +1,7 @@
+import cors from 'cors';
 import http from 'http';
 import express from 'express';
-import auth from './api/auth';
-
-// const { NODE_ENV } = process.env;
+import auth from './api/auth-api';
 
 /**
  * In order to unit test requests to the server, we need to create this function that will help in creating unique
@@ -10,6 +9,9 @@ import auth from './api/auth';
  */
 function createServer(): http.Server {
   const app = express();
+
+  // Enable cors
+  app.use(cors());
 
   app.use(express.json());
   // api routes

@@ -1,18 +1,18 @@
 import { Server } from 'http';
 import request, { SuperAgentTest } from 'supertest';
 import { models } from '../../models';
-import { RegisterFormFields } from '../../utils/api/auth';
+import { RegisterFormFields } from '../../utils/auth-utils';
 import {
   MOCK_HASH,
   MOCK_REGISTER_FORM,
   TEST_SERVER_PORT,
-} from '../../utils/tests/constants';
-import { createTestServer } from '../../utils/tests/helpers';
+  createTestServer,
+} from '../../utils/test-utils';
 
 // Determines if the call that hashes the user's password should fail.
 let returnHashError = false;
 
-jest.mock('../../utils/misc.ts', () => ({
+jest.mock('../../utils/misc-utils.ts', () => ({
   hashValue: async () => {
     if (returnHashError) {
       throw Error('error hashing value');
