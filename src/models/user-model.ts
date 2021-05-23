@@ -1,7 +1,7 @@
 import { Sequelize, UUID, UUIDV4 } from 'sequelize';
 import { DataTypes, Models, SequelizeModel } from '../utils/database-utils';
 
-export default function(
+export default function (
   sequelize: Sequelize,
   types: DataTypes
 ): typeof SequelizeModel {

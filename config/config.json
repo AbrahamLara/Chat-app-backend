@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "chatapp_admin_development",
-    "password": "chatapp_development",
-    "database": "chatapp_api_development",
-    "host": "127.0.0.1",
+    "username": "chatapp_development_admin",
+    "password": "chatapp_development_password",
+    "database": "chatapp_development",
+    "host": "db",
     "dialect": "postgres",
     "define": {
       "charset": "utf8",
@@ -11,10 +11,10 @@
     }
   },
   "test": {
-    "username": "chatapp_admin_test",
-    "password": "chatapp_test",
-    "database": "chatapp_api_test",
-    "host": "127.0.0.1",
+    "username": "chatapp_test_admin",
+    "password": "chatapp_test_password",
+    "database": "chatapp_test",
+    "host": "db",
     "dialect": "postgres",
     "define": {
       "charset": "utf8",

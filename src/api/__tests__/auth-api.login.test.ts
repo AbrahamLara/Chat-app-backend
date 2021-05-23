@@ -11,11 +11,11 @@ import {
 } from '../../utils/test-utils';
 import { LoginFormFields } from '../../utils/auth-utils';
 
-// Determines if the mock bcrypt compare call should fail.
+// Determines if the mock bcryptjs compare call should fail.
 let shouldFailCompare = false;
 
-// Mock bcrypt compare function to control behaviour of login route.
-jest.mock('bcrypt', () => ({
+// Mock bcryptjs compare function to control behaviour of login route.
+jest.mock('bcryptjs', () => ({
   compare: () => !shouldFailCompare,
 }));
 
@@ -95,7 +95,7 @@ describe('Auth login endpoint', () => {
   });
 
   it('returns error message for invalid credentials', async () => {
-    // Mock bcrypt compare call returning false because the provided password did not match the stored hash value.
+    // Mock bcryptjs compare call returning false because the provided password did not match the stored hash value.
     shouldFailCompare = true;
     // Register a new user.
     await registerUserWithMockForm(agent);

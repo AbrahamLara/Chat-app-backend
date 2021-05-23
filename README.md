@@ -1,29 +1,23 @@
 # Chat App Backend
+The Chat App backend for the frontend project [chat-app-frontend](https://github.com/AbrahamLara/Chat-App). This 
+project holds the Chat App api for authenticating users and allowing for various user related actions.
 
-The backend for the frontend project [chat-app-frontend](https://github.com/AbrahamLara/Chat-App).
+This project doesn't require you having a running/downloaded PostgreSQL server on your machine since it's using docker.
 
 ## Requirements
 * NodeJS
-* TypeScript
-* Sequelize
-* PostgreSQL
-
-## Database setup
-These instructions assume PostgreSQL has been installed and the `psql` has been set up for use.
-
-* Run PostgreSQL
-* Setup: `psql -h 127.0.0.1 -f database_setup.sql`
-
-**Note:** `psql` is an alias for the absolute path of the cli that comes with installing PostgreSQL. Here are links to 
-help set it up. However, it's not necessary, so if you don't want to set it up you can just click on the links 
-provided in order to know what the absolute path should look like in order to run the setup and destroy sql script.
-* [Windows](https://sqlbackupandftp.com/blog/setting-windows-path-for-postgres-tools)
-* [macOS](https://postgresapp.com/)
-
-### Undoing database setup
-* Destroy: `psql -h 127.0.0.1 -f database_destroy.sql`
+* Docker
 
 ## Project setup
-* Install packages: `npm run install`
-* Create database models: `npm run migrations`
-* Run server `npm run dev`;
+Install project dependencies (for local development):
+* `npm run install`
+
+Run migrations before running server:
+* `docker-compose run web npm run migrations`
+
+The first time you run this command docker will begin creating the images and container for this project before running
+migrations. Scripts that depend on a running service should be run using `docker-compose run web` like the command 
+above to run migrations.
+
+Start the server and database locally:
+* `docker-compose up`

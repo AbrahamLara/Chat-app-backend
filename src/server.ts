@@ -14,6 +14,7 @@ function createServer(): http.Server {
   app.use(cors());
 
   app.use(express.json());
+
   // api routes
   app.use('/api/auth', auth);
 

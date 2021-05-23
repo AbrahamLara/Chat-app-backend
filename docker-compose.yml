@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+    volumes:
+      - /var/lib/postgresql/data
+      # Run init script to setup development and test database environments.
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    environment:
+      POSTGRES_PASSWORD: postgres
+  web:
+    build: .
+    command: npm run dev 0.0.0.0:5000
+    volumes:
+      - .:/chat-app-backend
+    ports:
+      - 5000:5000
+    depends_on:
+      - db

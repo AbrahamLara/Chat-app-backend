@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { Router } from 'express';
 import { models } from '../models';
 import {
@@ -110,7 +110,7 @@ router.post('/login', async (req, res) => {
     const token = await generateToken({ userId: user.get('id') });
 
     res.json({ token });
-  } catch (e) {
+  } catch (event) {
     res
       .status(500)
       .json(
