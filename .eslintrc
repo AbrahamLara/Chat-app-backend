@@ -24,7 +24,9 @@
     "no-console": "off",
     "no-shadow": "off",
     "no-param-reassign": "off",
+    "no-use-before-define": "off",
     "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-shadow": ["error"],
     "func-names": "off",
     "sort-imports": ["error", {

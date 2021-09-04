@@ -6,14 +6,16 @@ import {
   LoginResponseMessage,
   RegisterResponseMessage,
 } from '../utils/auth-utils';
-import { generateToken, hashValue } from '../utils/misc-utils';
+import { hashValue } from '../utils/misc-utils';
 import { SequelizeModel } from '../utils/database-utils';
 import {
+  createGenericMessage,
   getLoginErrorMessages,
   getLoginFormErrors,
   getRegisterErrorMessages,
   getRegisterFormErrors,
 } from '../utils/message-utils';
+import { generateToken } from '../utils/token-utils';
 
 const router = Router();
 const SALT_ROUNDS = 10;
@@ -55,19 +57,16 @@ router.post('/register', async (req, res) => {
     // Update the user's current password with the hashed result.
     newUserModel.set('password', hashedPassword).save();
 
-    res.json({ message: RegisterResponseMessage.REGISTER_SUCCEEDED });
+    res.json(createGenericMessage(RegisterResponseMessage.REGISTER_SUCCEEDED));
   } catch (event) {
     if (newUserModel) {
       newUserModel.destroy();
     }
 
-    res
-      .status(500)
-      .json(
-        getRegisterErrorMessages([
-          { message: RegisterResponseMessage.REGISTER_FAILED },
-        ])
-      );
+    const message = createGenericMessage(
+      RegisterResponseMessage.REGISTER_FAILED
+    );
+    res.status(500).json(getRegisterErrorMessages([message]));
   }
 });
 
@@ -100,22 +99,21 @@ router.post('/login', async (req, res) => {
 
     if (!passwordMatchesHash) {
       // Since the provided password doesn't match the stored hash, complain!
-      const message = LoginResponseMessage.INVALID_CREDENTIALS;
-      res.status(400).json(getLoginErrorMessages([{ message }]));
+      const message = createGenericMessage(
+        LoginResponseMessage.INVALID_CREDENTIALS
+      );
+      res.status(400).json(getLoginErrorMessages([message]));
       return;
     }
 
     // Generate a token to be store client-side.
-    // TODO: Hash payload.
-    const token = await generateToken({ userId: user.get('id') });
+    const token = await generateToken({ userID: user.get('id') });
 
     res.json({ token });
   } catch (event) {
-    res
-      .status(500)
-      .json(
-        getLoginErrorMessages([{ message: LoginResponseMessage.LOGIN_FAILED }])
-      );
+    // Something went wrong attempting to login a user.
+    const message = createGenericMessage(LoginResponseMessage.LOGIN_FAILED);
+    res.status(500).json(getLoginErrorMessages([message]));
   }
 });
 

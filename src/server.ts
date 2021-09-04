@@ -1,7 +1,8 @@
 import cors from 'cors';
 import http from 'http';
 import express from 'express';
-import auth from './api/auth-api';
+import authApi from './api/auth-api';
+import searchApi from './api/search-api';
 
 /**
  * In order to unit test requests to the server, we need to create this function that will help in creating unique
@@ -16,7 +17,8 @@ function createServer(): http.Server {
   app.use(express.json());
 
   // api routes
-  app.use('/api/auth', auth);
+  app.use('/api/auth', authApi);
+  app.use('/api/search', searchApi);
 
   return http.createServer(app);
 }

@@ -1,79 +1,42 @@
 import { Server } from 'http';
-import request, { SuperAgentTest } from 'supertest';
-import { models } from '../../models';
+import { SuperAgentTest } from 'supertest';
 import { RegisterFormFields } from '../../utils/auth-utils';
 import {
   MOCK_HASH,
   MOCK_REGISTER_FORM,
-  TEST_SERVER_PORT,
-  createTestServer,
-} from '../../utils/test-utils';
+  mockServerAndAgent,
+  registerUserWithMockForm,
+  removeMockRegisteredUser,
+} from '../../test_utils/mock-utils';
+import { mockMiscUtils } from '../../test_utils/file_mocks/mock-misc-utils';
 
 // Determines if the call that hashes the user's password should fail.
 let returnHashError = false;
+let server: Server;
+let agent: SuperAgentTest;
 
-jest.mock('../../utils/misc-utils.ts', () => ({
+mockMiscUtils({
   hashValue: async () => {
     if (returnHashError) {
       throw Error('error hashing value');
     }
     return MOCK_HASH;
   },
-}));
-
-/**
- * Mocks a register request with a mock register form.
- */
-async function registerUserWithMockForm(agent: SuperAgentTest) {
-  return agent
-    .post('/api/auth/register')
-    .send(MOCK_REGISTER_FORM)
-    .set('Content-Type', 'application/json');
-}
-
-/**
- * This function expects a register request to fail based on the provided form values.
- */
-// eslint-disable-next-line @typescript-eslint/ban-types
-async function expectRegisterErrorMessage(
-  agent: SuperAgentTest,
-  form: RegisterFormFields,
-  status: number
-) {
-  const response = await agent
-    .post('/api/auth/register')
-    .send(form)
-    .set('Content-Type', 'application/json');
-
-  expect(response.status).toBe(status);
-  expect(response.ok).toBeFalsy();
-  expect(response.body).toMatchSnapshot();
-}
+});
 
 describe('Auth register endpoint', () => {
-  let server: Server;
-  let agent: SuperAgentTest;
+  beforeEach(
+    mockServerAndAgent((mockServer, testAgent) => {
+      server = mockServer;
+      agent = testAgent;
 
-  beforeEach(done => {
-    server = createTestServer();
-    server.listen(TEST_SERVER_PORT, () => {
-      agent = request.agent(server);
-      done();
-    });
-
-    // Reset flag.
-    returnHashError = false;
-  });
+      // Reset flag.
+      returnHashError = false;
+    })
+  );
 
   afterEach(async cb => {
-    const user = await models.User.findOne({
-      where: { email: MOCK_REGISTER_FORM.email },
-    });
-
-    if (user) {
-      // Destroy the newly created user if they exist.
-      await user.destroy();
-    }
+    await removeMockRegisteredUser();
 
     server.close(cb);
   });
@@ -95,3 +58,22 @@ describe('Auth register endpoint', () => {
     await expectRegisterErrorMessage(agent, MOCK_REGISTER_FORM, 400);
   });
 });
+
+/**
+ * This function expects a register request to fail based on the provided form values.
+ */
+// eslint-disable-next-line @typescript-eslint/ban-types
+async function expectRegisterErrorMessage(
+  testAgent: SuperAgentTest,
+  form: RegisterFormFields,
+  status: number
+) {
+  const response = await testAgent
+    .post('/api/auth/register')
+    .send(form)
+    .set('Content-Type', 'application/json');
+
+  expect(response.status).toBe(status);
+  expect(response.ok).toBeFalsy();
+  expect(response.body).toMatchSnapshot();
+}

@@ -1,4 +1,7 @@
-import { MOCK_LOGIN_FORM, MOCK_REGISTER_FORM } from '../test-utils';
+import {
+  MOCK_LOGIN_FORM,
+  MOCK_REGISTER_FORM,
+} from '../../test_utils/mock-utils';
 import { getLoginFormErrors, getRegisterFormErrors } from '../message-utils';
 
 describe('auth api utils', () => {

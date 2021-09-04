@@ -25,6 +25,17 @@ export enum LoginResponseMessage {
   LOGIN_FAILED = 'An error occurred trying to login.',
 }
 
+/**
+ * Authorization message if a user is not allowed access to something.
+ */
+export enum AuthorizationMessage {
+  UNAUTHORIZED = 'You are not authorized to perform this action',
+  INVALID_TOKEN = 'The provided token is invalid',
+}
+
+/**
+ * The auth form field names for registering/logging in.
+ */
 export enum AuthFormField {
   NAME = 'name',
   EMAIL = 'email',

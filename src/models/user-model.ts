@@ -20,7 +20,7 @@ export default function (
         defaultValue: UUIDV4,
       },
       name: {
-        type: types.STRING,
+        type: types.TEXT,
         allowNull: false,
       },
       email: {
@@ -36,6 +36,14 @@ export default function (
     {
       sequelize,
       modelName: 'User',
+      indexes: [
+        {
+          name: 'users_name_trigram',
+          using: 'GIN',
+          concurrently: true,
+          fields: [sequelize.Sequelize.literal('name gin_trgm_ops')],
+        },
+      ],
     }
   );
   return User;

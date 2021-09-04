@@ -1,0 +1,114 @@
+[
+  {
+    "id": "6467a153-d6f1-4937-af28-1c262a5cc5af",
+    "name": "Wallace Bates",
+    "email": "wallacebates@emtrak.com",
+    "createdAt": "2020-07-28T06:41:54",
+    "updatedAt": "2018-06-15T09:05:46",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "2a06fcb8-5af9-4bcf-bc5e-d1a9fda87c20",
+    "name": "Beverly Cervantes",
+    "email": "beverlycervantes@emtrak.com",
+    "createdAt": "2018-12-18T04:01:33",
+    "updatedAt": "2015-08-09T11:54:58",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "7b2ac1a8-a0ee-42cf-93e7-35d7387f6ea8",
+    "name": "Abigail Estes",
+    "email": "abigailestes@emtrak.com",
+    "createdAt": "2014-11-14T08:16:36",
+    "updatedAt": "2020-01-30T03:41:01",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "d27771a6-6381-4c3c-96a8-8f645487afd0",
+    "name": "Salinas Yates",
+    "email": "salinasyates@emtrak.com",
+    "createdAt": "2020-03-14T12:00:09",
+    "updatedAt": "2020-03-07T07:37:13",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "b43d4be8-8c6a-49f1-8861-c5922ea85299",
+    "name": "Maria Blanchard",
+    "email": "mariablanchard@emtrak.com",
+    "createdAt": "2020-08-11T06:22:13",
+    "updatedAt": "2021-06-03T11:03:39",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "d7b26c06-c4e3-4996-b810-3314e11c4954",
+    "name": "Estes Koch",
+    "email": "esteskoch@emtrak.com",
+    "createdAt": "2019-12-13T06:32:00",
+    "updatedAt": "2019-04-16T01:32:23",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "94d078cc-1e3e-462d-b826-8ad4358bcda1",
+    "name": "Erica Rodriquez",
+    "email": "ericarodriquez@emtrak.com",
+    "createdAt": "2015-04-02T10:39:38",
+    "updatedAt": "2017-02-15T11:57:12",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "ab04c02c-2d75-42db-91d2-2a2bcbd4fe53",
+    "name": "Moran Rodriguez",
+    "email": "moranrodriguez@emtrak.com",
+    "createdAt": "2019-03-06T08:19:37",
+    "updatedAt": "2017-01-05T08:27:50",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "ea6e9ccb-f777-45ff-a008-8a9e161330df",
+    "name": "Miller Humphrey",
+    "email": "millerhumphrey@emtrak.com",
+    "createdAt": "2021-03-26T06:56:10",
+    "updatedAt": "2014-06-29T07:46:02",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "a02f60a0-2e6b-4307-901a-e81f940c2e2b",
+    "name": "Harrison Skinner",
+    "email": "harrisonskinner@emtrak.com",
+    "createdAt": "2017-07-26T06:23:27",
+    "updatedAt": "2017-10-01T11:30:51",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "2454b1ac-f316-497f-bb42-905e0440abd8",
+    "name": "Bauer Wynn",
+    "email": "bauerwynn@emtrak.com",
+    "createdAt": "2018-05-19T02:07:34",
+    "updatedAt": "2016-09-02T11:51:23",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "eeb79ff8-01a1-4dcf-897f-3aaf7857a63b",
+    "name": "Lacy Keith",
+    "email": "lacykeith@emtrak.com",
+    "createdAt": "2018-05-22T09:38:53",
+    "updatedAt": "2017-08-29T08:33:33",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "37a9ca84-a9ee-48ce-800a-e82e4fd22a5b",
+    "name": "Butler Harding",
+    "email": "butlerharding@emtrak.com",
+    "createdAt": "2020-09-08T02:41:04",
+    "updatedAt": "2020-02-04T08:46:36",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  },
+  {
+    "id": "638bfaf1-3495-4066-bfea-480a14776a49",
+    "name": "Test User",
+    "email": "test@test.test",
+    "createdAt": "2021-08-22 14:50:24.922-04",
+    "updatedAt": "2020-02-04T08:46:36",
+    "password": "$2a$10$vcGuXh.vkllAmGhYY9Oe2uHKZzwToYySY9rFL7jBKcFgkFmZfA/Ny"
+  }
+]

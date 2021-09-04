@@ -1,0 +1,7 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Search user endpoint does not perform search without auth token 1`] = `
+Object {
+  "message": "You are not authorized to perform this action",
+}
+`;

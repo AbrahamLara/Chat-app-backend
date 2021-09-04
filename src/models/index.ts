@@ -1,10 +1,11 @@
 import { DataTypes, Sequelize } from 'sequelize';
 import User from './user-model';
 import { Models } from '../utils/database-utils';
+
+const NODE_ENV = process.env.NODE_ENV || 'development';
+
 // Get the env config from config.json
-const config = require(`${__dirname}/../../config/config.json`)[
-  process.env.NODE_ENV || 'development'
-];
+const config = require('../../config/config.json')[NODE_ENV];
 // Connect to the database.
 const sequelize = new Sequelize(
   config.database,

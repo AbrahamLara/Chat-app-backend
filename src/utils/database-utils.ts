@@ -8,13 +8,15 @@ class SequelizeModel extends Model {
   /**
    * Helper method for defining associations.
    * This method is not a part of Sequelize lifecycle.
-   * The `models/index` file will call this method automatically.
+   * The `models/index.ts` file will call this method automatically.
    */
   // eslint-disable-next-line @typescript-eslint/no-unused-vars,@typescript-eslint/ban-types
   static associate(models: object): void {}
 }
 
-type Models = { [key: string]: typeof SequelizeModel };
+interface Models {
+  [key: string]: typeof SequelizeModel;
+}
 
 // Sequelize data types to reference for all models.
 type DataTypes = typeof SequelizeDataTypes;
