@@ -37,6 +37,9 @@ describe('Search user endpoint', () => {
   });
 
   it('does not return the name of the user who performed the search', async () => {
+    // If an error occurs in the middle of the test, we should remove users that were already created  before attempting
+    // to bulk create again.
+    await removeMockUsers();
     await User.bulkCreate(searchMockUsers);
 
     const response = await searchUserWithName(agent, 'e', MOCK_JWT);

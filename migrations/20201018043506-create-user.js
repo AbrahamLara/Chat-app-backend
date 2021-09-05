@@ -32,7 +32,7 @@ module.exports = {
       },
       {
         indexes: [
-          // Create a trigram-based gin index.d.ts on the name column for very fast similarity searches.
+          // Create a trigram-based gin index on the name column for very fast similarity searches.
           // Docs: https://www.postgresql.org/docs/11/pgtrgm.html#id-1.11.7.40.7
           {
             name: 'users_name_trigram',
