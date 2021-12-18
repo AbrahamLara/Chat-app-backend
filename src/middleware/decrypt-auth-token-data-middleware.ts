@@ -12,7 +12,7 @@ export async function DecryptAuthTokenDataMiddleware(
   res: Response,
   next: NextFunction
 ): Promise<void> {
-  // If no token has been provided, then the user is not authorized to perform hit an endpoint.
+  // If no token has been provided, then the user is not authorized to call this endpoint.
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) {
     res

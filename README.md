@@ -18,7 +18,7 @@ You should now be able to make calls to your local server and play with the data
 
 ### Accessing PostgreSQL
 Run these commands in order to access the ChatApp databases created in the db service:
-* `docker exec -it chat-app-backend_db_1 /bin/sh` – access the container's interactive terminal
+* `docker-compose exec db sh` – access the db service's interactive terminal
 * `su - postgres` – switch to the postgres user
 * `psql chatapp_developmemt` – log into the PSQL client and access the development database
   * `psql chatapp_test` – to access the test database for unit testing

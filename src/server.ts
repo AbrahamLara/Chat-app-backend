@@ -5,8 +5,7 @@ import authApi from './api/auth-api';
 import searchApi from './api/search-api';
 
 /**
- * In order to unit test requests to the server, we need to create this function that will help in creating unique
- * instances of the server for each unit test.
+ * Creates a server instance for reuse. This also helps with creating different server instances for unit tests.
  */
 function createServer(): http.Server {
   const app = express();
