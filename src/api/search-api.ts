@@ -1,9 +1,10 @@
 import { Op } from 'sequelize';
 import { Request, Router } from 'express';
-import { models } from '../models';
-import { SearchResponseMessage } from '../utils/search-utils';
-import { createGenericMessage } from '../utils/message-utils';
+import { models } from '../../models';
+import { SearchAPIMessage } from '../utils/search-utils';
+import { createGenericResponse } from '../utils/response-utils';
 import { DecryptAuthTokenDataMiddleware } from '../middleware/decrypt-auth-token-data-middleware';
+import { TokenData } from '../utils/token-utils';
 
 const router = Router();
 const { User } = models;
@@ -13,21 +14,14 @@ router.use(DecryptAuthTokenDataMiddleware);
 // This route performs a user search using the provided name url parameter. In order to perform a search, an auth
 // token will be required.
 router.get('/user', async (req: Request, res) => {
-  const { query, tokenData } = req;
-  const { name } = query;
-
-  if (!tokenData) {
-    res
-      .status(500)
-      .json(createGenericMessage(SearchResponseMessage.SEARCH_ERROR));
-    return;
-  }
+  const tokenData = req.tokenData as TokenData;
+  const { name } = req.query;
 
   // If the name query param is empty, return an error message.
   if (!name) {
     res
       .status(404)
-      .json(createGenericMessage(SearchResponseMessage.BLANK_NAME_SEARCH));
+      .json(createGenericResponse(SearchAPIMessage.BLANK_NAME_SEARCH));
     return;
   }
 
@@ -41,7 +35,7 @@ router.get('/user', async (req: Request, res) => {
           [Op.iLike]: `%${name}%`,
         },
         id: {
-          [Op.not]: tokenData.userID,
+          [Op.not]: tokenData?.userID,
         },
       },
       limit: 10,
@@ -49,9 +43,7 @@ router.get('/user', async (req: Request, res) => {
 
     res.json({ results: names });
   } catch (event) {
-    res
-      .status(500)
-      .json(createGenericMessage(SearchResponseMessage.SEARCH_ERROR));
+    res.status(500).json(createGenericResponse(SearchAPIMessage.SEARCH_ERROR));
   }
 });
 

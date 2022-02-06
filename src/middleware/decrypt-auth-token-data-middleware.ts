@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from 'express';
-import { createGenericMessage } from '../utils/message-utils';
+import { createGenericResponse } from '../utils/response-utils';
 import { AuthorizationMessage } from '../utils/auth-utils';
 import { verifyToken } from '../utils/token-utils';
 
@@ -16,8 +16,8 @@ export async function DecryptAuthTokenDataMiddleware(
   const token = req.headers.authorization?.replace('Bearer ', '');
   if (!token) {
     res
-      .status(403)
-      .json(createGenericMessage(AuthorizationMessage.UNAUTHORIZED));
+      .status(401)
+      .json(createGenericResponse(AuthorizationMessage.UNAUTHORIZED));
     return;
   }
 
@@ -28,7 +28,7 @@ export async function DecryptAuthTokenDataMiddleware(
     next();
   } catch (_) {
     res
-      .status(403)
-      .json(createGenericMessage(AuthorizationMessage.INVALID_TOKEN));
+      .status(400)
+      .json(createGenericResponse(AuthorizationMessage.INVALID_TOKEN));
   }
 }

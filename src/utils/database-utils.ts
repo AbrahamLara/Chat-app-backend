@@ -14,8 +14,15 @@ class SequelizeModel extends Model {
   static associate(models: object): void {}
 }
 
+/**
+ * An object of sequelize models for querying.
+ */
 interface Models {
-  [key: string]: typeof SequelizeModel;
+  User: typeof SequelizeModel;
+  Chat: typeof SequelizeModel;
+  UserChat: typeof SequelizeModel;
+  Message: typeof SequelizeModel;
+  MessageRecipient: typeof SequelizeModel;
 }
 
 // Sequelize data types to reference for all models.

@@ -1,0 +1,50 @@
+[
+  {
+    "id": "bf2cf85e-40bd-4f55-a547-92a0c7d8b38d",
+    "userID": "638bfaf1-3495-4066-bfea-480a14776a49",
+    "userChatID": "7813d18c-b1a4-470c-a270-7b619d8404dd",
+    "messageID": "0344703a-72ba-467c-832f-3456486a83ff",
+    "createdAt": "2022-01-30 00:51:42.485+00",
+    "updatedAt": "2022-01-30 00:51:42.485+00"
+  },
+  {
+    "id": "dc9c5a62-2aa1-4337-bd97-07647a7a83c6",
+    "userID": "801a94bd-3ca3-487a-a887-07d7ce804dfb",
+    "userChatID": "1d45ddac-5fc3-4db2-b86d-905ca2f65ef7",
+    "messageID": "0344703a-72ba-467c-832f-3456486a83ff",
+    "createdAt": "2022-01-30 00:51:42.485+00",
+    "updatedAt": "2022-01-30 00:51:42.485+00"
+  },
+  {
+    "id": "54a5b36e-a77f-43a5-9a1b-c3d34bea7f8d",
+    "userID": "6c1c4f33-9474-449d-b656-440b23fdf6f8",
+    "userChatID": "2ba1d465-c3bf-41e7-8333-e91ba0b6e682",
+    "messageID": "0344703a-72ba-467c-832f-3456486a83ff",
+    "createdAt": "2022-01-30 00:51:42.485+00",
+    "updatedAt": "2022-01-30 00:51:42.485+00"
+  },
+  {
+    "id": "64fc0d76-6df3-40d9-bac8-2b0958c4182a",
+    "userID": "638bfaf1-3495-4066-bfea-480a14776a49",
+    "userChatID": "7813d18c-b1a4-470c-a270-7b619d8404dd",
+    "messageID": "9effafff-3bef-4efd-b4c9-860076ac8b06",
+    "createdAt": "2022-02-05 04:24:42.023+00",
+    "updatedAt": "2022-02-05 04:24:42.023+00"
+  },
+  {
+    "id": "e33bfccf-4826-4a36-a189-5a4b1fd4d791",
+    "userID": "801a94bd-3ca3-487a-a887-07d7ce804dfb",
+    "userChatID": "1d45ddac-5fc3-4db2-b86d-905ca2f65ef7",
+    "messageID": "9effafff-3bef-4efd-b4c9-860076ac8b06",
+    "createdAt": "2022-02-05 04:24:42.023+00",
+    "updatedAt": "2022-02-05 04:24:42.023+00"
+  },
+  {
+    "id": "0b509d1a-3a36-4461-a99d-9c54e27d2cc3",
+    "userID": "6c1c4f33-9474-449d-b656-440b23fdf6f8",
+    "userChatID": "2ba1d465-c3bf-41e7-8333-e91ba0b6e682",
+    "messageID": "9effafff-3bef-4efd-b4c9-860076ac8b06",
+    "createdAt": "2022-02-05 04:24:42.023+00",
+    "updatedAt": "2022-02-05 04:24:42.023+00"
+  }
+]

@@ -1,20 +1,20 @@
 import bcrypt from 'bcryptjs';
 import { Router } from 'express';
-import { models } from '../models';
+import { models } from '../../models';
 import {
   AuthFormField,
-  LoginResponseMessage,
-  RegisterResponseMessage,
+  LoginAPIMessage,
+  RegisterAPIMessage,
 } from '../utils/auth-utils';
 import { hashValue } from '../utils/misc-utils';
 import { SequelizeModel } from '../utils/database-utils';
 import {
-  createGenericMessage,
-  getLoginErrorMessages,
+  createGenericResponse,
+  getLoginErrorResponse,
   getLoginFormErrors,
-  getRegisterErrorMessages,
+  getRegisterErrorResponse,
   getRegisterFormErrors,
-} from '../utils/message-utils';
+} from '../utils/response-utils';
 import { generateToken } from '../utils/token-utils';
 
 const router = Router();
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
   // Determine if there are any errors with the given fields before proceeding.
   const formErrors = getRegisterFormErrors(req.body);
   if (formErrors) {
-    res.status(400).json(getRegisterErrorMessages(formErrors));
+    res.status(400).json(getRegisterErrorResponse(formErrors));
     return;
   }
 
@@ -44,10 +44,10 @@ router.post('/register', async (req, res) => {
 
     // If the user was not created, then that means that a user already exists with the given email.
     if (!created) {
-      const message = RegisterResponseMessage.EMAIL_IN_USE;
+      const message = RegisterAPIMessage.EMAIL_IN_USE;
       res
         .status(400)
-        .json(getRegisterErrorMessages([{ message, field: 'email' }]));
+        .json(getRegisterErrorResponse([{ message, field: 'email' }]));
       return;
     }
 
@@ -57,16 +57,14 @@ router.post('/register', async (req, res) => {
     // Update the user's current password with the hashed result.
     newUserModel.set('password', hashedPassword).save();
 
-    res.json(createGenericMessage(RegisterResponseMessage.REGISTER_SUCCEEDED));
+    res.json(createGenericResponse(RegisterAPIMessage.REGISTER_SUCCEEDED));
   } catch (event) {
     if (newUserModel) {
       newUserModel.destroy();
     }
 
-    const message = createGenericMessage(
-      RegisterResponseMessage.REGISTER_FAILED
-    );
-    res.status(500).json(getRegisterErrorMessages([message]));
+    const message = createGenericResponse(RegisterAPIMessage.REGISTER_FAILED);
+    res.status(500).json(getRegisterErrorResponse([message]));
   }
 });
 
@@ -75,7 +73,7 @@ router.post('/login', async (req, res) => {
   // Determine if there are any errors with the given fields before proceeding.
   const formErrors = getLoginFormErrors(req.body);
   if (formErrors) {
-    res.status(400).json(getLoginErrorMessages(formErrors));
+    res.status(400).json(getLoginErrorResponse(formErrors));
     return;
   }
 
@@ -86,10 +84,10 @@ router.post('/login', async (req, res) => {
 
     if (!user) {
       // Since we couldn't fetch a user with the provided email, complain!
-      const message = LoginResponseMessage.INVALID_EMAIL;
+      const message = LoginAPIMessage.INVALID_EMAIL;
       res
         .status(400)
-        .json(getLoginErrorMessages([{ message, field: AuthFormField.EMAIL }]));
+        .json(getLoginErrorResponse([{ message, field: AuthFormField.EMAIL }]));
       return;
     }
 
@@ -99,21 +97,24 @@ router.post('/login', async (req, res) => {
 
     if (!passwordMatchesHash) {
       // Since the provided password doesn't match the stored hash, complain!
-      const message = createGenericMessage(
-        LoginResponseMessage.INVALID_CREDENTIALS
+      const message = createGenericResponse(
+        LoginAPIMessage.INVALID_CREDENTIALS
       );
-      res.status(400).json(getLoginErrorMessages([message]));
+      res.status(400).json(getLoginErrorResponse([message]));
       return;
     }
 
     // Generate a token to be store client-side.
-    const token = await generateToken({ userID: user.get('id') });
+    const token = await generateToken({
+      userID: user.getDataValue('id'),
+      userName: user.getDataValue('name'),
+    });
 
     res.json({ token });
   } catch (event) {
     // Something went wrong attempting to login a user.
-    const message = createGenericMessage(LoginResponseMessage.LOGIN_FAILED);
-    res.status(500).json(getLoginErrorMessages([message]));
+    const message = createGenericResponse(LoginAPIMessage.LOGIN_FAILED);
+    res.status(500).json(getLoginErrorResponse([message]));
   }
 });
 

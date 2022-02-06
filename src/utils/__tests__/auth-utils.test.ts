@@ -2,7 +2,7 @@ import {
   MOCK_LOGIN_FORM,
   MOCK_REGISTER_FORM,
 } from '../../test_utils/mock-utils';
-import { getLoginFormErrors, getRegisterFormErrors } from '../message-utils';
+import { getLoginFormErrors, getRegisterFormErrors } from '../response-utils';
 
 describe('auth api utils', () => {
   it('getRegisterFormErrors returns error messages based on invalid form value', () => {

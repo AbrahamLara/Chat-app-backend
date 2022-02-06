@@ -1,5 +1,5 @@
 import { Sequelize, UUID, UUIDV4 } from 'sequelize';
-import { DataTypes, Models, SequelizeModel } from '../utils/database-utils';
+import { DataTypes, Models, SequelizeModel } from '../src/utils/database-utils';
 
 export default function (
   sequelize: Sequelize,
@@ -8,7 +8,18 @@ export default function (
   class User extends SequelizeModel {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     static associate(models: Models) {
-      // Defined model associations
+      User.belongsToMany(models.Chat, {
+        through: models.UserChat,
+        foreignKey: 'userID',
+      });
+      User.hasMany(models.Message, {
+        foreignKey: 'userID',
+        sourceKey: 'id',
+      });
+      User.belongsToMany(models.Message, {
+        through: models.MessageRecipient,
+        foreignKey: 'userID',
+      });
     }
   }
 

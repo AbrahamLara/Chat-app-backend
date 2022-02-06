@@ -3,7 +3,7 @@ import { Server } from 'http';
 import request, { Request, SuperAgentTest } from 'supertest';
 import { LoginFormFields, RegisterFormFields } from '../utils/auth-utils';
 import { AuthToken, JWT_DETAILS, TokenData } from '../utils/token-utils';
-import { models } from '../models';
+import { models } from '../../models';
 import ProvidesCallback = jest.ProvidesCallback;
 
 export const TEST_SERVER_PORT = 5001;
@@ -28,6 +28,7 @@ export const MOCK_USER = {
 // A mock token data object for testing purposes.
 export const MOCK_TOKEN_DATA: TokenData = {
   userID: MOCK_USER.id,
+  userName: MOCK_USER.name,
 };
 
 // An auth token for mocking decrypted jwt data.

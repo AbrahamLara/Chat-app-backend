@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Chat endpoint returns error message if payload values are invalid 1`] = `
+Object {
+  "message": "The provided userIDs value is invalid.",
+}
+`;
+
+exports[`Chat endpoint returns error message if payload values are invalid 2`] = `
+Object {
+  "message": "Chat name must be a non-empty string.",
+}
+`;
+
+exports[`Chat endpoint returns error message if payload values are invalid 3`] = `
+Object {
+  "message": "Chat message must be a non-empty string.",
+}
+`;

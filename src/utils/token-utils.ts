@@ -17,7 +17,15 @@ export const JWT_DETAILS = {
  * Token data that can be used to perform authorized actions.
  */
 export interface TokenData {
+  /**
+   * The authenticated user's id.
+   */
   userID: string;
+
+  /**
+   * The name of the authenticated user.
+   */
+  userName: string;
 }
 
 /**

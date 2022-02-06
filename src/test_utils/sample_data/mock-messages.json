@@ -1,0 +1,18 @@
+[
+  {
+    "id": "0344703a-72ba-467c-832f-3456486a83ff",
+    "message": "Test message here",
+    "userID": "6c1c4f33-9474-449d-b656-440b23fdf6f8",
+    "chatID": "6185725f-b682-4b2f-b06a-b60478245297",
+    "createdAt": "2022-01-30 00:51:42.471+00",
+    "updatedAt": "2022-01-30 00:51:42.471+00"
+  },
+  {
+    "id": "9effafff-3bef-4efd-b4c9-860076ac8b06",
+    "message": "This was sent here",
+    "userID": "6c1c4f33-9474-449d-b656-440b23fdf6f8",
+    "chatID": "6185725f-b682-4b2f-b06a-b60478245297",
+    "createdAt": "2022-02-05 04:24:42.01+00",
+    "updatedAt": "2022-02-05 04:24:42.01+00"
+  }
+]

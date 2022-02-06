@@ -7,6 +7,8 @@ module.exports = {
   },
 
   down: async queryInterface => {
-    await queryInterface.sequelize.query('DROP EXTENSION IF EXISTS pg_trgm;');
+    await queryInterface.sequelize.query(
+      'DROP EXTENSION IF EXISTS pg_trgm CASCADE;'
+    );
   },
 };

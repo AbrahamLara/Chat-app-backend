@@ -5,12 +5,12 @@ import {
   MOCK_USER,
   mockServerAndAgent,
 } from '../../test_utils/mock-utils';
-import searchMockUsers from '../../test_utils/sample_data/search-mock-users.json';
-import { models } from '../../models';
+import mockUsers from '../../test_utils/sample_data/mock-users.json';
+import { models } from '../../../models';
 import { mockTokenUtils } from '../../test_utils/file_mocks/mock-token-utils';
 
 const { User } = models;
-const MOCK_SEARCH_USER_IDS = searchMockUsers.map(user => user.id);
+const MOCK_SEARCH_USER_IDS = mockUsers.map(user => user.id);
 let server: Server;
 let agent: SuperAgentTest;
 
@@ -31,7 +31,7 @@ describe('Search user endpoint', () => {
   it('does not perform search without auth token', async () => {
     const response = await searchUserWithName(agent, 'e', '');
     // Expect the call to have failed because no token was provided.
-    expect(response.status).toBe(403);
+    expect(response.status).toBe(401);
     expect(response.ok).toBeFalsy();
     expect(response.body).toMatchSnapshot();
   });
@@ -40,7 +40,7 @@ describe('Search user endpoint', () => {
     // If an error occurs in the middle of the test, we should remove users that were already created  before attempting
     // to bulk create again.
     await removeMockUsers();
-    await User.bulkCreate(searchMockUsers);
+    await User.bulkCreate(mockUsers);
 
     const response = await searchUserWithName(agent, 'e', MOCK_JWT);
 

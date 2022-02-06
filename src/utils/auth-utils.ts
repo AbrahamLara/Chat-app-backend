@@ -1,7 +1,7 @@
 /**
  * Register form message responses for the register api route.
  */
-export enum RegisterResponseMessage {
+export enum RegisterAPIMessage {
   FIELDS_ARE_BLANK = 'All fields must be filled in.',
   BLANK_NAME = 'Please enter your name.',
   BLANK_CONF_PASSWORD = 'Please re-enter your password to confirm.',
@@ -16,7 +16,7 @@ export enum RegisterResponseMessage {
 /**
  * Login form message responses for the login api route.
  */
-export enum LoginResponseMessage {
+export enum LoginAPIMessage {
   FIELDS_ARE_BLANK = 'Please fill in both fields.',
   BLANK_EMAIL = 'Enter your email to login',
   BLANK_PASSWORD = 'Enter your password to login',
@@ -55,8 +55,14 @@ export interface LoginFormFields {
  * The register form fields provided by client-side.
  */
 export interface RegisterFormFields extends LoginFormFields {
+  /**
+   * The name of the user registering an account.
+   */
   name: string;
-  // The confirmation password that should match the value of the password field.
+
+  /**
+   * The confirmation password that should match the value of the password field
+   */
   confPassword: string;
 }
 
