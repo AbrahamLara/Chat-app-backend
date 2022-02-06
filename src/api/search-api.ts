@@ -29,7 +29,7 @@ router.get('/user', async (req: Request, res) => {
     // Find all user's names matching the provided string pattern. Do not return the name of the user who performed
     // the search using the userID in the token data.
     const names = await User.findAll({
-      attributes: ['name', 'createdAt'],
+      attributes: ['id', 'name'],
       where: {
         name: {
           [Op.iLike]: `%${name}%`,
