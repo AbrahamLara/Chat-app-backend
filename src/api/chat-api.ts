@@ -3,7 +3,11 @@ import { Op, col, fn } from 'sequelize';
 import { models } from '../../models';
 import { DecryptAuthTokenDataMiddleware } from '../middleware/decrypt-auth-token-data-middleware';
 import { TokenData } from '../utils/token-utils';
-import { createGenericResponse } from '../utils/response-utils';
+import {
+  createGenericResponse,
+  getCreateChatErrorResponse,
+  getCreateChatFormErrors,
+} from '../utils/response-utils';
 import { ChatAPIMessage } from '../utils/chat-utils';
 
 interface CreateChatPayload {
@@ -32,28 +36,14 @@ router.use(DecryptAuthTokenDataMiddleware);
 // the newly created chat.
 router.post('/', async (req: Request, res) => {
   const { userID, userName } = req.tokenData as TokenData;
+
+  const formErrors = getCreateChatFormErrors(req.body);
+  if (formErrors) {
+    res.status(400).json(getCreateChatErrorResponse(formErrors));
+    return;
+  }
+
   const { userIDs, chatName, message } = req.body as CreateChatPayload;
-
-  // Return an error message if the provided userIDs value is invalid.
-  if (!Array.isArray(userIDs) || !userIDs.length) {
-    res
-      .status(400)
-      .json(createGenericResponse(ChatAPIMessage.INVALID_USER_IDS));
-    return;
-  }
-  // Return an error message if the provided chat name is invalid.
-  if (!chatName) {
-    res
-      .status(400)
-      .json(createGenericResponse(ChatAPIMessage.INVALID_CHAT_NAME));
-    return;
-  }
-  // Return an error message if the provided chat message is blank.
-  if (!message) {
-    res.status(400).json(createGenericResponse(ChatAPIMessage.BLANK_MESSAGE));
-    return;
-  }
-
   // A list of user id's that will be part of the group chat.
   const chatUserIDs = userIDs.concat(userID);
 
@@ -92,11 +82,10 @@ router.post('/', async (req: Request, res) => {
       chat: {
         id: chatID,
         name: chatName,
-        isGroup: true,
-        createdAt: messageModel.getDataValue('createdAt'),
         message: {
           author: userName,
           text: message,
+          createdAt: messageModel.getDataValue('createdAt'),
         },
       },
     });
@@ -155,9 +144,8 @@ router.get('/', async (req: Request, res) => {
 
     res.json({ chats });
   } catch (event) {
-    res
-      .status(500)
-      .json(createGenericResponse(ChatAPIMessage.ERROR_FETCHING_CHAT));
+    const message = createGenericResponse(ChatAPIMessage.ERROR_FETCHING_CHAT);
+    res.status(500).json(getCreateChatErrorResponse([message]));
   }
 });
 

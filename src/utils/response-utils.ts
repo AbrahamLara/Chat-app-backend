@@ -7,10 +7,17 @@ import {
   RegisterAPIMessage,
   RegisterFormFields,
 } from './auth-utils';
+import {
+  ChatAPIMessage,
+  CreateChatFormField,
+  CreateChatFormFields,
+} from './chat-utils';
 
 export enum ApiRoute {
   REGISTER = 'register',
   LOGIN = 'login',
+  CHAT = 'chat',
+  MESSAGE = 'message',
 }
 
 interface GenericResponse {
@@ -161,6 +168,47 @@ export function getLoginFormErrors(
 }
 
 /**
+ * Returns an array of errors from the provided create chat form fields.
+ *
+ * @param fields Create chat form fields
+ */
+export function getCreateChatFormErrors(
+  fields: CreateChatFormFields
+): FormErrorResponse[] | null {
+  const { chatName, message, userIDs } = fields;
+  const errors: FormErrorResponse[] = [];
+  // Check that the fields are filled.
+  if (!chatName) {
+    errors.push(
+      createFormErrorResponse(
+        ChatAPIMessage.BLANK_CHAT_NAME,
+        CreateChatFormField.CHAT_NAME
+      )
+    );
+  }
+
+  if (!message) {
+    errors.push(
+      createFormErrorResponse(
+        ChatAPIMessage.BLANK_MESSAGE,
+        CreateChatFormField.MESSAGE
+      )
+    );
+  }
+
+  if (!userIDs.length) {
+    errors.push(
+      createFormErrorResponse(
+        ChatAPIMessage.INVALID_USER_IDS,
+        CreateChatFormField.USER_IDS
+      )
+    );
+  }
+
+  return errors.length ? errors : null;
+}
+
+/**
  * Creates a register form error response.
  */
 export function getRegisterErrorResponse(
@@ -176,4 +224,13 @@ export function getLoginErrorResponse(
   errors: FormErrorResponse[]
 ): ErrorPayload {
   return { type: ApiRoute.LOGIN, errors };
+}
+
+/**
+ * Creates an error response for the create chat form.
+ */
+export function getCreateChatErrorResponse(
+  errors: FormErrorResponse[]
+): ErrorPayload {
+  return { type: ApiRoute.CHAT, errors };
 }

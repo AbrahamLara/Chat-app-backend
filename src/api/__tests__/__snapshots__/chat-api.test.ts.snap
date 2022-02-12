@@ -2,18 +2,48 @@
 
 exports[`Chat endpoint returns error message if payload values are invalid 1`] = `
 Object {
-  "message": "The provided userIDs value is invalid.",
+  "errors": Array [
+    Object {
+      "field": "chatName",
+      "message": "Chat name must be a non-empty string.",
+    },
+    Object {
+      "field": "message",
+      "message": "Chat message must be a non-empty string.",
+    },
+    Object {
+      "field": "userIDs",
+      "message": "The provided userIDs value is invalid.",
+    },
+  ],
+  "type": "chat",
 }
 `;
 
 exports[`Chat endpoint returns error message if payload values are invalid 2`] = `
 Object {
-  "message": "Chat name must be a non-empty string.",
+  "errors": Array [
+    Object {
+      "field": "chatName",
+      "message": "Chat name must be a non-empty string.",
+    },
+    Object {
+      "field": "message",
+      "message": "Chat message must be a non-empty string.",
+    },
+  ],
+  "type": "chat",
 }
 `;
 
 exports[`Chat endpoint returns error message if payload values are invalid 3`] = `
 Object {
-  "message": "Chat message must be a non-empty string.",
+  "errors": Array [
+    Object {
+      "field": "message",
+      "message": "Chat message must be a non-empty string.",
+    },
+  ],
+  "type": "chat",
 }
 `;

@@ -5,7 +5,5 @@ module.exports = {
     await queryInterface.bulkInsert('Users', mockUsers, {});
   },
 
-  down: async queryInterface => {
-    await queryInterface.bulkDelete('Users', null, {});
-  },
+  down: async () => {},
 };
