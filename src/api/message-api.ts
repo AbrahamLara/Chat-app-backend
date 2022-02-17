@@ -56,7 +56,10 @@ router.post('/:chatID', async (req: Request, res) => {
       message: {
         id: messageID,
         text: message,
-        author: userName,
+        author: {
+          id: userID,
+          name: userName,
+        },
         createdAt: messageModel.getDataValue('createdAt'),
       },
     });
@@ -102,7 +105,7 @@ router.get('/:chatID', async (req: Request, res) => {
         {
           model: Message,
           attributes: ['id', 'message'],
-          include: [{ model: User, attributes: ['name'] }],
+          include: [{ model: User, attributes: ['id', 'name'] }],
         },
       ],
     });
@@ -110,8 +113,11 @@ router.get('/:chatID', async (req: Request, res) => {
     const messages = messageRecords.map((messageRecord: any) => ({
       id: messageRecord['Message.id'],
       text: messageRecord['Message.message'],
-      createdAt: messageRecord['Message.createdAt'],
-      author: messageRecord['Message.User.name'],
+      author: {
+        name: messageRecord['Message.User.name'],
+        id: messageRecord['Message.User.id'],
+      },
+      createdAt: messageRecord.createdAt,
     }));
 
     res.json({ messages });

@@ -64,7 +64,7 @@ async function searchUserWithName(
 ) {
   const authorizationValue = token ? `Bearer ${token}` : '';
   return testAgent
-    .get(`/api/search/user?name=${name}`)
+    .get(`/api/search/users?name=${name}`)
     .set('Authorization', authorizationValue);
 }
 

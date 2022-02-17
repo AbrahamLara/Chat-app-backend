@@ -6,6 +6,7 @@ This project doesn't require you having to download PostgreSQL on your machine s
 
 ## Requirements
 * NodeJS
+* Node v12
 * Docker
 
 ## Project setup

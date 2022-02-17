@@ -9,6 +9,7 @@ import {
   getCreateChatFormErrors,
 } from '../utils/response-utils';
 import { ChatAPIMessage } from '../utils/chat-utils';
+import { AuthorizationMessage } from '../utils/auth-utils';
 
 interface CreateChatPayload {
   /**
@@ -89,7 +90,7 @@ router.post('/', async (req: Request, res) => {
         },
       },
     });
-  } catch (event) {
+  } catch {
     res
       .status(500)
       .json(createGenericResponse(ChatAPIMessage.ERROR_CREATING_CHAT));
@@ -143,8 +144,46 @@ router.get('/', async (req: Request, res) => {
     }));
 
     res.json({ chats });
-  } catch (event) {
+  } catch {
     const message = createGenericResponse(ChatAPIMessage.ERROR_FETCHING_CHAT);
+    res.status(500).json(getCreateChatErrorResponse([message]));
+  }
+});
+
+// This route fetches the basic info for each member of the provided chag id.
+router.get('/:chatID/members', async (req: Request, res) => {
+  const { userID } = req.tokenData as TokenData;
+  const { chatID } = req.params;
+
+  try {
+    // Check if the user is allowed to fetch the members of the provided group chat id.
+    const userChatModel = await UserChat.findOne({ where: { chatID, userID } });
+    if (!userChatModel) {
+      res
+        .status(403)
+        .json(createGenericResponse(AuthorizationMessage.UNAUTHORIZED));
+      return;
+    }
+
+    // Fetch records of the members in the chat.
+    const userChatMemberRecords = await UserChat.findAll({
+      raw: true,
+      where: { chatID },
+      attributes: [],
+      include: [{ model: User, attributes: ['id', 'name'] }],
+    });
+
+    // Create an object to hold the necessary info of users.
+    const members = userChatMemberRecords.map((userChatMember: any) => ({
+      id: userChatMember['User.id'],
+      name: userChatMember['User.name'],
+    }));
+
+    res.json({ members });
+  } catch {
+    const message = createGenericResponse(
+      ChatAPIMessage.ERROR_FETCHING_CHAT_MEMBERS
+    );
     res.status(500).json(getCreateChatErrorResponse([message]));
   }
 });

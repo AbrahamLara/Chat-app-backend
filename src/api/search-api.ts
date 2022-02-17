@@ -11,10 +11,10 @@ const { User } = models;
 
 router.use(DecryptAuthTokenDataMiddleware);
 
-// This route performs a user search using the provided name url parameter. In order to perform a search, an auth
-// token will be required.
-router.get('/user', async (req: Request, res) => {
-  const tokenData = req.tokenData as TokenData;
+// This route performs a search on users using the provided name url query parameter. In order to perform a search, an
+// auth token will be required.
+router.get('/users', async (req: Request, res) => {
+  const { userID } = req.tokenData as TokenData;
   const { name } = req.query;
 
   // If the name query param is empty, return an error message.
@@ -35,7 +35,7 @@ router.get('/user', async (req: Request, res) => {
           [Op.iLike]: `%${name}%`,
         },
         id: {
-          [Op.not]: tokenData?.userID,
+          [Op.not]: userID,
         },
       },
       limit: 10,
@@ -43,6 +43,29 @@ router.get('/user', async (req: Request, res) => {
 
     res.json({ results: names });
   } catch (event) {
+    res.status(500).json(createGenericResponse(SearchAPIMessage.SEARCH_ERROR));
+  }
+});
+
+// This route fetches a user profile using the provided token.
+router.get('/user/profile', async (req: Request, res) => {
+  try {
+    const { userID, userName } = req.tokenData as TokenData;
+    const userModel = await User.findByPk(userID);
+
+    if (!userModel) {
+      res
+        .status(404)
+        .json(createGenericResponse(SearchAPIMessage.SEARCH_ERROR));
+      return;
+    }
+
+    res.json({
+      id: userID,
+      name: userName,
+      email: userModel.getDataValue('email'),
+    });
+  } catch {
     res.status(500).json(createGenericResponse(SearchAPIMessage.SEARCH_ERROR));
   }
 });
